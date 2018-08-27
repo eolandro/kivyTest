@@ -1,0 +1,3 @@
+title=KvX
+author=eolandro
+orientation=portrait
