@@ -36,29 +36,26 @@ class Acceso(App):
 		)
 		popup.open()
 	
-	def tokenListo(self,req,Ret):
+	def tokenListo(self,ins):
 		print(u'+++ +++')
-		print(Ret)
-		if Ret['R'] == 200:
-			self.tknn = Ret['D']
-			req_body = '{"TKN":"'+Ret['D']+'"}'
-			
-			headers = {
-				'Content-Type':'application/json'
-			}
-			
-			print(self.baseurl +'/api/echo')
-			print(u'Body:',req_body)
-			req = UrlRequest(
-				url = self.baseurl +'/api/echo', 
-				on_success = self.envioCred,
-				on_error = self.reqError,
-				on_failure = self.reqFail,
-				decode = True,
-				req_body = req_body,
-				verify = False,
-				req_headers = headers
-			)
+		req_body = '{"TKN":"ECHO"}'
+		
+		headers = {
+			'Content-Type':'application/json'
+		}
+		
+		print(self.baseurl +'/api/echo')
+		print(u'Body:',req_body)
+		req = UrlRequest(
+			url = self.baseurl +'/api/echo', 
+			on_success = self.envioCred,
+			#on_error = self.reqError,
+			on_failure = self.reqFail, # crash on comment
+			decode = True,
+			req_body = req_body,
+			verify = False,
+			req_headers = headers
+		)
 			
 	def envioCred(self,req,Ret):
 		print(u'+++ +++')
@@ -74,17 +71,6 @@ class Acceso(App):
 			
 	def salir(self,ins):
 		App.get_running_app().stop()
-		
-	def btnokPress(self,ins):
-		print(self.baseurl +'/api/getTokenM')
-		req = UrlRequest(
-			url = self.baseurl +'/api/getTokenM', 
-			on_success = self.tokenListo,
-			on_error = self.reqError,
-			on_failure = self.reqFail,
-			verify = False,
-			decode = True
-		)
 			
 		
 	def build(self,**kw):
@@ -115,7 +101,7 @@ class Acceso(App):
 		layout.add_widget(control)
 		layout.add_widget(Widget())
 		
-		btnok.bind(on_press=self.btnokPress)
+		btnok.bind(on_press=self.tokenListo)
 		btnexit.bind(on_press=self.salir)
 		
 		
