@@ -49,8 +49,8 @@ class Acceso(App):
 		req = UrlRequest(
 			url = self.baseurl +'/api/echo', 
 			on_success = self.envioCred,
-			#on_error = self.reqError,
-			on_failure = self.reqFail, # crash on comment
+			on_error = self.reqError, # comment for avoid crash
+			on_failure = self.reqFail, 
 			decode = True,
 			req_body = req_body,
 			verify = False,
