@@ -8,12 +8,14 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
+from kivy.clock import Clock, mainthread
 # hacer post y get a la api
 from kivy.network.urlrequest import UrlRequest
 from kivy.uix.screenmanager import Screen
 from kivy.metrics import dp
 
 class Acceso(App):
+	@mainthread
 	def reqError(self,req, Ret):
 		print(u'Error en la conexión al servidor')
 		print(Ret)
@@ -25,6 +27,7 @@ class Acceso(App):
 		)
 		popup.open()
 		
+	@mainthread
 	def reqFail(self,req, Ret):
 		print(u'Error al realizar la petición')
 		print(Ret)
@@ -35,7 +38,8 @@ class Acceso(App):
 			size_hint=(1,1.0/3.0),
 		)
 		popup.open()
-	
+		
+	@mainthread
 	def tokenListo(self,ins):
 		print(u'+++ +++')
 		req_body = '{"TKN":"ECHO"}'
@@ -56,7 +60,7 @@ class Acceso(App):
 			verify = False,
 			req_headers = headers
 		)
-			
+	@mainthread
 	def envioCred(self,req,Ret):
 		print(u'+++ +++')
 		print(u'Ret: ',Ret,req)
